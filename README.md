@@ -1,21 +1,30 @@
-# Mobile Wedding Invitation
+# 강왕엽 · 문지은 모바일 청첩장
 
-GitHub Pages에 바로 올릴 수 있는 단일 파일 모바일 청첩장입니다.
+강왕엽, 문지은의 결혼식 모바일 청첩장입니다.
 
-## 파일
+## 예식 안내
 
-- `index.html`: 화면, 스타일, 동작이 모두 들어있는 정적 페이지
+- 일시: 2026년 7월 11일 토요일 낮 12시 50분
+- 장소: 광주 라붐웨딩홀 3층 베일리홀
+- 주소: 광주 서구 상무누리로 59
 
-## 구조
+## 청첩장 링크
 
-`index.html` 안의 표시 데이터는 간단한 XOR + Base64 포맷으로 묶어서 런타임에 주입합니다. 보안 목적의 암호화는 아니고, HTML 원문에서 이름/연락처/계좌번호가 바로 검색되는 것만 줄이는 수준입니다.
+https://moon-jieun.github.io/
 
-## GitHub Pages 배포
+## 구성
 
-1. 이 폴더를 GitHub 저장소로 push합니다.
-2. GitHub 저장소의 `Settings > Pages`로 이동합니다.
-3. `Build and deployment`에서 `Deploy from a branch`를 선택합니다.
-4. Branch를 `main`, 폴더를 `/root`로 설정합니다.
-5. 저장 후 표시되는 Pages URL로 접속합니다.
+- 모바일 중심 초대장 화면
+- 갤러리 사진 보기 및 좌우 넘김
+- 오시는 길 및 대중교통 안내
+- 계좌번호 복사
+- 참석의사 전달 폼
+- 배경음악 재생
+- 공유 썸네일 메타태그
 
-별도 빌드 과정이나 서버가 필요 없습니다.
+## 주요 파일
+
+- `index.html`: 청첩장 페이지
+- `assets/close-to-you.mp3`: 배경음악
+- `assets/og-thumbnail.jpg`: 공유 썸네일
+- `assets/location-map.png`: 오시는 길 지도 이미지
