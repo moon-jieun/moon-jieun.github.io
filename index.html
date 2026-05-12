@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f1ea">
+  <title>Wedding Invitation</title>
+  <meta name="description" content="소중한 분들을 결혼식에 초대합니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wedding Invitation">
+  <meta property="og:description" content="소중한 분들을 결혼식에 초대합니다.">
+  <meta property="og:image" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;family=Gowun+Dodum&amp;family=Parisienne&amp;family=Pretendard:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fbfaf6;
+      --paper-deep: #f1eee7;
+      --ink: #2d2925;
+      --muted: #77706b;
+      --line: #d9d2c8;
+      --rose: #f1a5b5;
+      --rose-dark: #d98999;
+      --sage: #7d927b;
+      --gold: #a88f6d;
+      --white: #fffefa;
+      --shadow: 0 18px 50px rgba(82, 73, 63, .08);
+      --hero-image: none;
+      --calendar-image: none;
+      --map-image: none;
+      --rsvp-image: none;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .88), transparent 22rem),
+        linear-gradient(90deg, rgba(0, 0, 0, .025) 1px, transparent 1px),
+        linear-gradient(180deg, #f8f6f0 0%, var(--paper) 38%, #f4f1ea 100%);
+      background-size: auto, 7px 7px, auto;
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      width: min(100%, 480px);
+      margin: 0 auto;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, .025) 1px, transparent 1px),
+        #fbfaf6;
+      background-size: 7px 7px, auto;
+      box-shadow: 0 0 0 1px rgba(217, 210, 200, .5);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .audio-banner {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      width: min(100%, 480px);
+      height: 42px;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 7px 14px 0;
+      color: rgba(50, 48, 45, .78);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .audio-banner span {
+      display: none;
+    }
+
+    .audio-toggle {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      justify-self: end;
+      border: 0;
+      background: transparent;
+      color: currentColor;
+      padding: 0;
+      filter: drop-shadow(0 1px 5px rgba(255, 255, 255, .85));
+      pointer-events: auto;
+    }
+
+    .audio-toggle svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .audio-toggle svg[hidden] {
+      display: none;
+    }
+
+    .intro-splash {
+      position: fixed;
+      inset: 0;
+      left: 50%;
+      z-index: 50;
+      width: min(100%, 480px);
+      transform: translateX(-50%);
+      display: grid;
+      place-items: start center;
+      overflow: hidden;
+      background: #f5f3ee;
+      pointer-events: none;
+      animation: splashExit .72s cubic-bezier(.76, 0, .24, 1) 2.55s forwards;
+    }
+
+    .intro-splash::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 43%, rgba(255, 255, 255, .78), transparent 12rem),
+        radial-gradient(circle at 24% 29%, rgba(241, 165, 181, .11), transparent 4.8rem),
+        radial-gradient(circle at 74% 62%, rgba(214, 184, 141, .1), transparent 5.4rem),
+        #f5f3ee;
+      animation: splashBreath 2.45s ease-in-out both;
+    }
+
+    .intro-splash::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 240px;
+      height: 240px;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      background:
+        radial-gradient(ellipse at 32% 28%, rgba(242, 152, 171, .24) 0 8px, transparent 9px),
+        radial-gradient(ellipse at 72% 36%, rgba(238, 191, 165, .22) 0 7px, transparent 8px),
+        radial-gradient(ellipse at 44% 74%, rgba(242, 152, 171, .18) 0 6px, transparent 7px);
+      filter: blur(.1px);
+      opacity: 0;
+      animation: splashPetals 2.25s ease .18s forwards;
+    }
+
+    .splash-script {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      margin-top: clamp(300px, 40svh, 360px);
+      color: var(--rose);
+      font-family: Parisienne, "Gowun Batang", serif;
+      font-size: clamp(56px, 15.6vw, 72px);
+      font-weight: 800;
+      line-height: 1.12;
+      text-align: center;
+      -webkit-text-stroke: .7px rgba(217, 137, 153, .36);
+      text-shadow:
+        .8px 0 0 rgba(217, 137, 153, .5),
+        -.35px 0 0 rgba(217, 137, 153, .32),
+        0 8px 26px rgba(241, 165, 181, .28);
+      transform: rotate(-2deg);
+    }
+
+    .splash-script span {
+      display: block;
+      margin: 0 auto;
+      padding: 0 .08em .32em;
+      white-space: nowrap;
+      opacity: 1;
+      clip-path: inset(-28% 100% -44% 0);
+      animation: splashWrite 1.18s linear forwards;
+    }
+
+    .splash-script span:first-child {
+      font-size: .86em;
+    }
+
+    .splash-script span:last-child {
+      font-size: 1.12em;
+      margin-top: -.2em;
+    }
+
+    .splash-script span:first-child { animation-delay: .24s; }
+    .splash-script span:last-child { animation-delay: 1.05s; }
+
+    .nav {
+      position: fixed;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(6, max-content);
+      gap: 10px;
+      align-items: center;
+      width: min(calc(100% - 26px), 454px);
+      overflow-x: auto;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .74);
+      border: 1px solid rgba(217, 210, 200, .78);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 24px rgba(70, 63, 55, .1);
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100svh - 42px);
+      display: grid;
+      align-content: end;
+      padding: 0;
+      background: #f3f5f5;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 48% 16%, rgba(255, 255, 255, .28), transparent 12rem),
+        linear-gradient(180deg, rgba(247, 250, 250, .12), rgba(247, 250, 250, .02) 48%, rgba(246, 243, 236, .04)),
+        var(--hero-image) center top / cover no-repeat;
+      transform: none;
+      filter: saturate(.94) brightness(1.025);
+      animation: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 24%;
+      z-index: -1;
+      border: 0;
+      background: linear-gradient(180deg, transparent, rgba(251, 250, 246, .72) 74%, rgba(251, 250, 246, .96));
+      pointer-events: none;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .hero .glow {
+      position: absolute;
+      inset: -20%;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 54% 12%, rgba(255, 255, 255, .8), transparent 10rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, .36) 42%, transparent 56%);
+      mix-blend-mode: soft-light;
+      opacity: 0;
+      transform: translateX(-18%) rotate(7deg);
+      animation: glowSweep 3.2s cubic-bezier(.22, .8, .24, 1) .35s forwards;
+      pointer-events: none;
+    }
+
+    .hero .petals {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -12%;
+      left: var(--x);
+      width: var(--size);
+      height: calc(var(--size) * .72);
+      border-radius: 60% 5% 60% 8%;
+      background:
+        radial-gradient(circle at 34% 30%, rgba(255, 255, 255, .9), transparent 34%),
+        linear-gradient(135deg, rgba(255, 220, 228, .82), rgba(242, 152, 171, .62));
+      box-shadow: 0 6px 18px rgba(222, 123, 148, .16);
+      opacity: 0;
+      transform: translate3d(0, -30px, 0) rotate(0deg);
+      animation: petalFall var(--dur) linear var(--delay) infinite;
+    }
+
+    .petal:nth-child(2n) {
+      border-radius: 8% 58% 10% 58%;
+      background:
+        radial-gradient(circle at 70% 36%, rgba(255, 255, 255, .75), transparent 36%),
+        linear-gradient(135deg, rgba(255, 245, 232, .94), rgba(232, 183, 158, .76));
+    }
+
+    .hero .curtain {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, #fbfaf6 0%, rgba(251, 250, 246, .92) 58%, rgba(251, 250, 246, 0) 100%);
+      transform-origin: top;
+      animation: curtainLift 2.35s cubic-bezier(.76, 0, .24, 1) .18s forwards;
+      pointer-events: none;
+    }
+
+    .script-title {
+      display: none;
+      position: absolute;
+      top: clamp(388px, 51svh, 452px);
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      padding: 0 18px .28em;
+      transform: translateY(18px) rotate(-2deg);
+      color: var(--rose);
+      font-family: Parisienne, "Gowun Batang", serif;
+      font-size: clamp(34px, 10.8vw, 48px);
+      line-height: 1.15;
+      text-align: center;
+      -webkit-text-stroke: .25px rgba(217, 137, 153, .24);
+      text-shadow: 0 7px 22px rgba(241, 165, 181, .22);
+      opacity: 0;
+      clip-path: inset(-25% 100% -35% 0);
+      animation: scriptReveal 2.2s cubic-bezier(.19, 1, .22, 1) 4.05s forwards;
+    }
+
+    .hero-top {
+      display: none;
+      align-self: start;
+      margin-top: auto;
+      padding: 0 22px 118px;
+      color: var(--ink);
+      text-align: center;
+      text-shadow: none;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeRise .9s ease 5s forwards;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+    }
+
+    .hero h1 {
+      margin: 10px 0 0;
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(36px, 12vw, 56px);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: 0;
+      animation: nameFloat 4.8s ease-in-out 2.2s infinite;
+    }
+
+    .hero-card {
+      margin: 0 auto;
+      width: min(100% - 88px, 320px);
+      padding: 18px 0;
+      border-top: 1px solid rgba(45, 41, 37, .72);
+      border-bottom: 1px solid rgba(45, 41, 37, .72);
+      background: transparent;
+      color: var(--ink);
+      text-align: center;
+      text-shadow: none;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .hero-card .date {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .hero-card .place {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .scroll {
+      width: 1px;
+      height: 42px;
+      margin: 22px auto 0;
+      background: rgba(45, 41, 37, .46);
+      transform-origin: top;
+      animation: scrollLine 1.7s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(.35); opacity: .45; }
+      45% { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes heroPhoto {
+      0% { transform: scale(1.04); filter: saturate(.68) brightness(1.08); }
+      100% { transform: scale(1); filter: saturate(.94) brightness(1.04); }
+    }
+
+    @keyframes splashPhoto {
+      0% { transform: scale(1.05); filter: saturate(.75) brightness(1.12); }
+      100% { transform: scale(1); filter: saturate(.94) brightness(1.05); }
+    }
+
+    @keyframes splashExit {
+      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-4%); visibility: hidden; }
+    }
+
+    @keyframes splashBreath {
+      0% { filter: brightness(1); transform: scale(1); }
+      55% { filter: brightness(1.035); transform: scale(1.015); }
+      100% { filter: brightness(1.01); transform: scale(1); }
+    }
+
+    @keyframes splashPetals {
+      0% { opacity: 0; transform: translate(-50%, -45%) rotate(-12deg) scale(.94); }
+      26% { opacity: .76; }
+      100% { opacity: .18; transform: translate(-50%, -58%) rotate(4deg) scale(1.08); }
+    }
+
+    @keyframes scriptReveal {
+      0% {
+        opacity: 0;
+        clip-path: inset(-25% 100% -35% 0);
+        transform: translateY(18px) rotate(-2deg);
+      }
+      35% { opacity: 1; }
+      100% {
+        opacity: 1;
+        clip-path: inset(-25% 0 -35% 0);
+        transform: translateY(0) rotate(-2deg);
+      }
+    }
+
+    @keyframes curtainLift {
+      0% { transform: scaleY(1); opacity: 1; }
+      72% { opacity: .82; }
+      100% { transform: scaleY(0); opacity: 0; }
+    }
+
+    @keyframes frameIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeRise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glowSweep {
+      0% { opacity: 0; transform: translateX(-22%) rotate(7deg); }
+      28% { opacity: .9; }
+      100% { opacity: .42; transform: translateX(16%) rotate(7deg); }
+    }
+
+    @keyframes petalFall {
+      0% { opacity: 0; transform: translate3d(0, -30px, 0) rotate(0deg); }
+      8% { opacity: .85; }
+      88% { opacity: .7; }
+      100% { opacity: 0; transform: translate3d(var(--drift), 112svh, 0) rotate(var(--spin)); }
+    }
+
+    @keyframes nameFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes splashScriptReveal {
+      0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateY(20px) rotate(-2deg);
+      }
+      35% { opacity: 1; }
+      100% {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0) rotate(-2deg);
+      }
+    }
+
+    @keyframes splashWrite {
+      to { clip-path: inset(-28% 0 -44% 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+    }
+
+    section {
+      padding: 88px 24px;
+      border-bottom: 1px solid rgba(217, 210, 200, .42);
+    }
+
+    section:nth-of-type(even) {
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, .021) 1px, transparent 1px),
+        rgba(255, 253, 249, .42);
+      background-size: 7px 7px, auto;
+    }
+
+    .ceremony-summary {
+      min-height: 280px;
+      display: grid;
+      align-items: start;
+      padding-top: 58px;
+      padding-bottom: 120px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .8), transparent 14rem),
+        linear-gradient(90deg, rgba(0, 0, 0, .025) 1px, transparent 1px),
+        #fbfaf6;
+      background-size: auto, 7px 7px, auto;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px) scale(.985);
+      filter: blur(8px);
+      transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.22, .8, .24, 1),
+        filter .9s ease;
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, transform, filter;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .section-title.reveal.in-view .section-kicker {
+      animation: shimmerText 1.6s ease .2s both;
+    }
+
+    @keyframes shimmerText {
+      0% { color: var(--gold); text-shadow: none; }
+      45% { color: #dfb77b; text-shadow: 0 0 18px rgba(223, 183, 123, .46); }
+      100% { color: var(--gold); text-shadow: none; }
+    }
+
+    .section-title {
+      margin: 0 0 30px;
+      text-align: center;
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 23px;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--rose-dark);
+      font-family: Pretendard, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .prose {
+      margin: 0 auto;
+      max-width: min(360px, calc(100vw - 32px));
+      color: #4f4943;
+      font-family: "Gowun Dodum", Pretendard, sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 2.02;
+      text-align: center;
+    }
+
+    .keep-line {
+      display: inline;
+      white-space: normal;
+      font-size: 1em;
+    }
+
+    .names {
+      display: grid;
+      gap: 18px;
+      margin-top: 44px;
+      padding: 24px 18px;
+      background: rgba(255, 255, 255, .45);
+      border: 1px solid var(--line);
+      border-radius: 0;
+    }
+
+    .family-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .family-row strong {
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(72, 50, 32, .06);
+    }
+
+    .btn.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #fffefa;
+    }
+
+    .btn svg { width: 16px; height: 16px; }
+
+    .calendar-wrap {
+      background:
+        linear-gradient(rgba(255, 253, 249, .9), rgba(255, 253, 249, .88)),
+        var(--calendar-image) center / cover;
+    }
+
+    .calendar {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255, 253, 249, .88);
+      box-shadow: var(--shadow);
+    }
+
+    .cal-head {
+      display: grid;
+      gap: 5px;
+      padding: 22px 18px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cal-head b {
+      font-family: "Gowun Batang", serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .cal-head span { color: var(--muted); font-size: 13px; }
+
+    .week, .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+    }
+
+    .week {
+      padding: 16px 10px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .days {
+      gap: 4px 0;
+      padding: 0 10px 18px;
+      font-size: 14px;
+    }
+
+    .day {
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      color: #6a5c51;
+      position: relative;
+    }
+
+    .day.muted { color: transparent; }
+    .day.target {
+      color: #fff;
+      font-weight: 800;
+      z-index: 0;
+    }
+
+    .day.target::before {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--rose);
+      z-index: -1;
+      box-shadow: 0 7px 18px rgba(201, 138, 122, .34);
+    }
+
+    .countdown {
+      margin-top: 22px;
+      padding: 18px 14px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255, 253, 249, .76);
+      text-align: center;
+    }
+
+    .countdown b {
+      color: var(--rose-dark);
+      font-size: 22px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .gallery button {
+      aspect-ratio: 1;
+      border: 0;
+      padding: 0;
+      border-radius: 2px;
+      overflow: hidden;
+      background: var(--paper-deep);
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .gallery button:active img { transform: scale(1.05); filter: brightness(.96); }
+    .gallery button.reveal.in-view:nth-child(3n + 1) { transition-delay: 40ms; }
+    .gallery button.reveal.in-view:nth-child(3n + 2) { transition-delay: 120ms; }
+    .gallery button.reveal.in-view:nth-child(3n) { transition-delay: 200ms; }
+
+    .location-card, .account-card {
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: rgba(255, 255, 255, .58);
+      box-shadow: 0 16px 38px rgba(77, 57, 42, .09);
+      overflow: hidden;
+    }
+
+    .map {
+      height: 202px;
+      background:
+        linear-gradient(135deg, rgba(125, 146, 123, .025), rgba(201, 138, 122, .04)),
+        var(--map-image) center / cover;
+      border-bottom: 1px solid rgba(217, 210, 200, .74);
+    }
+
+    .location-body, .account-body {
+      padding: 22px 18px;
+    }
+
+    .location-body h3, .account-body h3 {
+      margin: 0 0 8px;
+      font-family: "Gowun Batang", serif;
+      font-size: 21px;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .transit-card {
+      margin-top: 22px;
+      padding: 24px 12px 24px 10px;
+      border: 1px solid rgba(217, 210, 200, .72);
+      background:
+        radial-gradient(circle, rgba(217, 137, 153, .08) 1px, transparent 1.2px),
+        rgba(255, 250, 250, .58);
+      background-size: 8px 8px;
+    }
+
+    .transit-row {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 0 0 24px;
+      border-bottom: 1px solid rgba(217, 210, 200, .75);
+    }
+
+    .transit-row + .transit-row {
+      padding-top: 24px;
+      border-bottom: 0;
+    }
+
+    .transit-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(217, 137, 153, .13);
+      color: var(--rose-dark);
+    }
+
+    .transit-icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .transit-title {
+      margin: 0 0 12px;
+      color: var(--rose-dark);
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .transit-list {
+      margin: 0;
+      color: #4f4a45;
+      font-size: 16px;
+      line-height: 1.82;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .transit-list strong {
+      font-weight: 700;
+    }
+
+    .transit-stop {
+      display: inline-block;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .route-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .mini {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .account-group + .account-group { margin-top: 22px; }
+    .account-card.offset { margin-top: 28px; }
+    .meta.spaced { margin-top: 10px; }
+    .account-group h3 {
+      margin: 0 0 12px;
+      color: var(--rose-dark);
+      font-family: Pretendard, sans-serif;
+      font-size: 14px;
+    }
+
+    .account-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 14px 0;
+      border-top: 1px solid rgba(229, 215, 201, .74);
+    }
+
+    .account-item:first-of-type { border-top: 0; }
+    .account-item b { display: block; margin-bottom: 4px; font-size: 14px; }
+    .account-item span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    .copy-btn {
+      min-width: 54px;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: #fff;
+      color: var(--rose-dark);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .rsvp {
+      text-align: center;
+      background:
+        linear-gradient(rgba(251, 250, 246, .76), rgba(251, 250, 246, .84)),
+        var(--rsvp-image) center / cover;
+      color: var(--ink);
+    }
+
+    .rsvp .section-title { color: var(--ink); }
+    .rsvp .section-kicker { color: var(--rose-dark); }
+    .rsvp p {
+      margin: 0 auto 22px;
+      max-width: 300px;
+      font-family: "Gowun Batang", serif;
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .rsvp-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      display: none;
+      align-items: end;
+      justify-content: center;
+      padding: 18px 14px;
+      background: rgba(37, 31, 28, .46);
+    }
+
+    .rsvp-modal.open { display: flex; }
+
+    .rsvp-dialog {
+      width: min(100%, 420px);
+      max-height: min(88vh, 720px);
+      overflow: auto;
+      border: 1px solid rgba(217, 210, 200, .92);
+      border-radius: 10px 10px 0 0;
+      background:
+        radial-gradient(circle, rgba(217, 137, 153, .07) 1px, transparent 1.2px),
+        #fffdfa;
+      background-size: 8px 8px;
+      box-shadow: 0 24px 70px rgba(37, 31, 28, .24);
+    }
+
+    .rsvp-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 20px 14px;
+      border-bottom: 1px solid rgba(229, 215, 201, .74);
+    }
+
+    .rsvp-head h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Gowun Batang", serif;
+      font-size: 21px;
+    }
+
+    .rsvp-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .rsvp-form {
+      display: grid;
+      gap: 18px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .rsvp-field {
+      display: grid;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .rsvp-field input[type="text"],
+    .rsvp-field input[type="number"] {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(217, 210, 200, .95);
+      border-radius: 0;
+      background: rgba(255, 255, 255, .9);
+      color: var(--ink);
+      font: 500 16px/1.4 Pretendard, sans-serif;
+      padding: 0 13px;
+      outline: 0;
+    }
+
+    .rsvp-field input:focus {
+      border-color: var(--rose-dark);
+      box-shadow: 0 0 0 3px rgba(217, 137, 153, .15);
+    }
+
+    .rsvp-segment {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid rgba(217, 210, 200, .95);
+      background: #fff;
+    }
+
+    .rsvp-segment.meal {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .rsvp-segment label {
+      min-height: 44px;
+      display: grid;
+      place-items: center;
+      border-left: 1px solid rgba(217, 210, 200, .74);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .rsvp-segment label:first-child { border-left: 0; }
+    .rsvp-segment input { position: absolute; opacity: 0; pointer-events: none; }
+    .rsvp-segment label:has(input:checked) {
+      background: rgba(217, 137, 153, .15);
+      color: var(--rose-dark);
+    }
+
+    .rsvp-privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .rsvp-privacy input {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--rose-dark);
+      flex: 0 0 auto;
+    }
+
+    .rsvp-submit {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .rsvp-submit:disabled {
+      opacity: .58;
+      cursor: wait;
+    }
+
+    .footer {
+      padding: 32px 20px 48px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 70;
+      transform: translate(-50%, 90px);
+      width: min(calc(100% - 40px), 340px);
+      padding: 13px 16px;
+      border-radius: 8px;
+      background: rgba(52, 43, 37, .92);
+      color: #fff;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0;
+      transition: .28s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(25, 21, 18, .88);
+    }
+
+    .lightbox.open { display: grid; }
+
+    .lightbox-stage {
+      position: relative;
+      width: min(100%, 520px);
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox img {
+      max-height: 82vh;
+      width: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, .42);
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .lightbox img.changing {
+      opacity: .35;
+      transform: translateX(var(--photo-shift, 0)) scale(.985);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 56px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(0, 0, 0, .24);
+      color: #fff;
+      font-size: 34px;
+      line-height: 1;
+      border-radius: 0;
+    }
+
+    .lightbox-prev { left: 0; }
+    .lightbox-next { right: 0; }
+
+    @media (min-width: 720px) {
+      body { padding: 30px 0; }
+      .shell { border-radius: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="intro-splash" aria-hidden="true">
+      <div class="splash-script"><span>We're getting</span><span>Married!</span></div>
+    </div>
+    <div class="audio-banner">
+      <span>Close to You</span>
+      <button class="audio-toggle" id="audioToggle" type="button" aria-label="배경음악 재생">
+        <svg id="audioIconOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="m23 9-6 6"/><path d="m17 9 6 6"/></svg>
+        <svg id="audioIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true" hidden><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      </button>
+      <audio id="bgm" data-src="assets/close-to-you.mp3" preload="none" loop></audio>
+    </div>
+    <nav class="nav" aria-label="청첩장 메뉴">
+      <a href="#intro">인사말</a>
+      <a href="#calendar">달력</a>
+      <a href="#gallery">갤러리</a>
+      <a href="#location">오시는 길</a>
+      <a href="#account">계좌번호</a>
+      <a href="#rsvp">참석의사</a>
+    </nav>
+
+    <header class="hero" id="main">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="petals" aria-hidden="true">
+        <span class="petal" data-petal="8%,12px,7.8s,.2s,72px,520deg"></span>
+        <span class="petal" data-petal="18%,9px,6.9s,1.1s,-44px,-420deg"></span>
+        <span class="petal" data-petal="31%,14px,8.4s,.55s,58px,610deg"></span>
+        <span class="petal" data-petal="47%,10px,7.2s,1.8s,-70px,-520deg"></span>
+        <span class="petal" data-petal="62%,13px,9.1s,.85s,38px,480deg"></span>
+        <span class="petal" data-petal="76%,8px,6.5s,1.45s,-58px,-390deg"></span>
+        <span class="petal" data-petal="88%,15px,8.8s,.35s,-92px,680deg"></span>
+        <span class="petal" data-petal="96%,10px,7.6s,2.25s,-116px,-560deg"></span>
+      </div>
+      <div class="curtain" aria-hidden="true"></div>
+      <div class="hero-top">
+        <div class="eyebrow">Wedding Invitation</div>
+        <h1 data-field="heroNames">Wedding</h1>
+      </div>
+    </header>
+    <section class="ceremony-summary" aria-label="예식 일시와 장소">
+      <div class="hero-card">
+        <p class="date" data-field="dateText"></p>
+        <p class="place" data-field="placeText"></p>
+      </div>
+    </section>
+
+    <section id="intro">
+      <h2 class="section-title"><span class="section-kicker">Invitation</span><span data-field="invitationTitle"></span></h2>
+      <p class="prose" data-field="introHtml"></p>
+
+      <div class="names">
+        <div class="family-row">
+          <span data-field="groomFamilyDesc"></span>
+          <strong data-field="groomFamilyName"></strong>
+        </div>
+        <div class="family-row">
+          <span data-field="brideFamilyDesc"></span>
+          <strong data-field="brideFamilyName"></strong>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#" data-action="groomCall" aria-label="신랑에게 전화하기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.62a2 2 0 0 1-.45 2.11L9 10.74a16 16 0 0 0 4.26 4.26l1.29-1.29a2 2 0 0 1 2.11-.45c.84.3 1.72.51 2.62.63A2 2 0 0 1 22 16.92Z"/></svg>
+          신랑&nbsp;연락
+        </a>
+        <a class="btn" href="#" data-action="brideCall" aria-label="신부에게 전화하기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.09 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.62a2 2 0 0 1-.45 2.11L9 10.74a16 16 0 0 0 4.26 4.26l1.29-1.29a2 2 0 0 1 2.11-.45c.84.3 1.72.51 2.62.63A2 2 0 0 1 22 16.92Z"/></svg>
+          신부&nbsp;연락
+        </a>
+      </div>
+    </section>
+
+    <section class="calendar-wrap" id="calendar">
+      <h2 class="section-title"><span class="section-kicker">Calendar</span><span data-field="calendarTitle"></span></h2>
+      <div class="calendar">
+        <div class="cal-head">
+          <b data-field="calendarMonth"></b>
+          <span data-field="calendarTime"></span>
+        </div>
+        <div class="week">
+          <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div class="days" role="grid" aria-label="2026년 7월 달력">
+          <span class="day muted">.</span><span class="day muted">.</span><span class="day muted">.</span>
+          <span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span>
+          <span class="day">5</span><span class="day">6</span><span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day target">11</span>
+          <span class="day">12</span><span class="day">13</span><span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span>
+          <span class="day">19</span><span class="day">20</span><span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span>
+          <span class="day">26</span><span class="day">27</span><span class="day">28</span><span class="day">29</span><span class="day">30</span><span class="day">31</span><span class="day muted">.</span>
+        </div>
+      </div>
+      <div class="countdown" aria-live="polite">
+        <span data-field="countdownPrefix"></span><br>
+        <b id="dDay">계산 중</b>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2 class="section-title"><span class="section-kicker">Gallery</span>우리의 순간</h2>
+      <div class="gallery" id="galleryGrid"></div>
+    </section>
+
+    <section id="location">
+      <h2 class="section-title"><span class="section-kicker">Location</span>오시는 길</h2>
+      <div class="location-card">
+        <div class="map" role="img" aria-label="예식장 주변 지도 이미지"></div>
+        <div class="location-body">
+          <h3 data-field="locationName">Location</h3>
+          <p class="meta" data-field="locationDetail"></p>
+          <div class="route-actions">
+            <a class="mini btn" href="#" data-action="naverMap" target="_blank" rel="noreferrer">네이버</a>
+            <a class="mini btn" href="#" data-action="kakaoMap" target="_blank" rel="noreferrer">카카오</a>
+            <a class="mini btn" href="#" data-action="tmap" target="_blank" rel="noreferrer">티맵</a>
+          </div>
+        </div>
+      </div>
+      <div class="transit-card">
+        <div class="transit-row">
+          <div class="transit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 21l2-4"/><path d="M16 21l-2-4"/><path d="M8 8h8"/><path d="M8 13h.01"/><path d="M16 13h.01"/></svg>
+          </div>
+          <div>
+            <h3 class="transit-title">지하철</h3>
+            <p class="transit-list"><span class="transit-stop">김대중컨벤션센터(마륵)역</span> 하차<br>4,5번 출구(도보 5분)</p>
+          </div>
+        </div>
+        <div class="transit-row">
+          <div class="transit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="4" width="14" height="13" rx="2"/><path d="M7 9h10"/><path d="M8 17v2"/><path d="M16 17v2"/><path d="M8 13h.01"/><path d="M16 13h.01"/></svg>
+          </div>
+          <div>
+            <h3 class="transit-title">버스</h3>
+            <p class="transit-list">- <span class="transit-stop">김대중컨벤션센터(마륵역)</span> 하차<br>일곡38, 상무64<br>- <span class="transit-stop">5.18자유공원</span><br><span class="transit-stop">(김대중컨벤션센터)</span> 하차<br>순환01, 좌석02, 상무63, 상무64, 518<br>- <span class="transit-stop">보훈회관</span><br><span class="transit-stop">(5.18 민주화운동교육관)</span><br>일곡38, 상무63, 518</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="account">
+      <h2 class="section-title"><span class="section-kicker">Thanks</span>마음 전하실 곳</h2>
+      <p class="prose" data-field="accountText"></p>
+      <div class="account-card offset">
+        <div class="account-body" id="accountBody"></div>
+      </div>
+    </section>
+
+    <section class="rsvp" id="rsvp">
+      <h2 class="section-title"><span class="section-kicker">참석의사</span><span data-field="rsvpTitle"></span></h2>
+      <p data-field="rsvpContent"></p>
+      <button class="btn primary" id="openRsvpForm" type="button">참석 의사 전달하기</button>
+    </section>
+
+    <footer class="footer">
+      <span data-field="footer"></span><br>
+      GitHub Pages static wedding invitation
+    </footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="사진 크게 보기">
+    <button class="lightbox-close" type="button" id="closeLightbox" aria-label="닫기">×</button>
+    <div class="lightbox-stage" id="lightboxStage">
+      <button class="lightbox-nav lightbox-prev" type="button" id="prevPhoto" aria-label="이전 사진">‹</button>
+      <img id="lightboxImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
+      <button class="lightbox-nav lightbox-next" type="button" id="nextPhoto" aria-label="다음 사진">›</button>
+    </div>
+  </div>
+
+  <div class="rsvp-modal" id="rsvpModal" aria-modal="true" role="dialog" aria-labelledby="rsvpModalTitle">
+    <div class="rsvp-dialog">
+      <div class="rsvp-head">
+        <h3 id="rsvpModalTitle">참석 의사 전달</h3>
+        <button class="rsvp-close" id="closeRsvpForm" type="button" aria-label="닫기">×</button>
+      </div>
+      <form class="rsvp-form" id="rsvpForm">
+        <div class="rsvp-field">
+          <span>구분</span>
+          <div class="rsvp-segment">
+            <label><input type="radio" name="side" value="groom" checked>신랑측</label>
+            <label><input type="radio" name="side" value="bride">신부측</label>
+          </div>
+        </div>
+        <label class="rsvp-field">
+          <span>성함</span>
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label class="rsvp-field">
+          <span>참석 인원</span>
+          <input type="number" name="count" min="1" max="20" value="1" inputmode="numeric" required>
+        </label>
+        <div class="rsvp-field">
+          <span>식사 여부</span>
+          <div class="rsvp-segment meal">
+            <label><input type="radio" name="meal" value="true" checked>예정</label>
+            <label><input type="radio" name="meal" value="false">안함</label>
+            <label><input type="radio" name="meal" value="">미정</label>
+          </div>
+        </div>
+        <label class="rsvp-privacy">
+          <input type="checkbox" name="privacy" required>
+          <span>참석 의사 전달을 위한 개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+        <button class="btn primary rsvp-submit" type="submit">참석 의사 전달하기</button>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast">복사되었습니다.</div>
+
+  <script>
+    const packed = "CBNGWkBNFhMIEd6R5t2rpti2zhHwhBTK34nelLTN7rES2YaRnqmO3qGImLq62L+FUR0QV1FSEENbQ0BIHF8QCRYTQwME2LGlUwbeqKABQgDerogBnreS3661n6yOE9+j3REDAdiq7xEHA9+X9xMeEVtGOlxTVFEDSRNaR0BRAAsdHEcSXVBCHlpOAUVaVlVSBxwAHVVMEktdXVVWAB9RXFkOHlJTQVAPFUNdXkBOF1BLHVdOXVpAHEMOB3tzAFtMXEFaXEBOAB5GeXUSHFxtXldAAVVtAQQTRRwCBxkTRG5TAA1DQlRUUVUZSwUGBlIXEQkBAQdDEgUDAABCRQAKAWtWSwECHV5RFBMeEVxEAV58UllEABMIEd6R5t2rpti2zg1QQQrK34nelLTN7rEQHxZFEkVXZ1FZBxMIEQYRQQfZtrABRN2ppxQQQt2vjxTM9ZHeqaDN7o0S2LaPUwAA37+9UwQC2IKlUR0QQ1hAEFRmVkxVUQsQ2YCwn5KOE9+8z9qEo9i629qmmtm48xEB34yUU9qAk9i8z9qUn9m48xMeEV1PBVhGUkBIHF9mWkBNFhMIEdiV+9q+s9m02tq5u9+q1xMeEV1PB0Nde0BMHxMIEd+q19qXixTLwITYg7ANU9q5l9+EyxHeuKjLw7XerrABmYCF2Lm5T1NADd+l+9qeh9+j69q9txTK+JXZlowBmKCiE9ij39qsv9i8xw1QQQrN963ZkqjN7qkS2IKhn5CD3qG9U9qEs9+X992vtxTNwrXeqLjN0I3ZmoQdEUMM3qGJmYqqE96R6t2vsxTLy4nerrABmYCF2YatU9qiq9i2+924ht+q+9q5lxodEUMM37KtmIGn3qG5n5ay2JOtU9q5m9+q29ynq96S0xHZp4TK74rfpqgdEUMM2Juen6y+36m5U9uCs9iB5t2vtxTN7oXZl7DLw7HYgZTN+YTZuLzK+JUcD1ZTTduKg9ig29uBjxTN95XZk6zN7rUS3qGJmYqq3qGVU92Rj9iq79uBkxTNxaTZgIHM5oUS35edn7WK3661XRMeEVJAHlheWlFSUQtpSBZFFkJREQ4DmYGn36qNmYSfE/aWU9qCptil092nt9i86xHeprDK4JUQHxZPElxXEQ4DmYGn3620n6aPEUkNCBNWVkdCUQsQ2JiZmYmC3re9U/OFE9+R5t2Ws9i3y92vqxTK54kQHxZPElxXEQ4DmJ2K35Ohn6yyEUl8XxNRXFpVElJGQBYbCBNVQVtOHhMIEQQQQwcGAwYRRQkFERgDEUNbV1EDSRMCAgQWRgMCCgcWRRNPHxZCEl1XXVBAAWVbR1hEUQsQ37Ktn5Wj3qG9U92njtin/t2vqxTK8ZEQHxZCEl1XXVBAAXxdXUBJUQsQAQQTRR8SAwMDXxNRUlhEHVVTQWBIHlQQCRbM9ZHeqaDN7o0S2LaPUwAA37+9UwQC2IKlUR0QUFtUHUVWXENPI0NXVV1ZUQsQ2YS0n6in36OcU/OFE9+Ny92Vs9i88xHYgYTM643euKnLyr3elLQDXxNeXFdAB1hdXRYbCBNcUllEUQsQ2YCwn5KOE9+8z9qEo9i629qmmtm48xMeEVBEB1BbXxYbUQLei4EBmIOS36mdmJee3q2hT1NADd6V4t2RjxTN963YhpgBn7Kz2JiVmLm22JKNmJCuEwEYUR0QXVVXFkMQCRZJB0VCQA4OXFxTQxpPEkdXQRpCHFwdQxtSFlBAUFwOVnRzFnYVVggDFnFiVnABFnZiVgMCFnFjVgh2FnZiVnRwFnYXVggCFnFiVghwFnUZVnRwFg0VVnALFnFlVggLFgwRUR0QWFVKEl4QCRZJB0VCQA4OXFxTQxpKElpTXBpCHFwdX11PGB5BVlVTEFkdFnFgVnMGFg0QVnRxFnUSVnNxFgYRVnRwFg1lVnNxFnFjVnMEFg0RVnRxFg1jVnAKFnFjVggGFnUYVnR2Fg0YVgkCERgDB1xTQxYbUVlGR0RSSR4dRENWXUVfUkQPEF4cWEYOB1xTQwYOHl5QWlhEXENdRkBEXVtBQwtPElxXDhFkMhRwBxEYQhR3cBFgQBRwcBETQxR3cREYNxRwcBFkMRRwBREYQxR3cBEYMRRzCxFkMRQLBxFgShR3dxEYShQKAxYNUUVAUlpSGkUQCRbN7aHYg7TN6ZgS36mVn6ubE9iq7xHesLXK34XeuKjK3I3YgIHN6KES36mZmYaOHxTN67neuKnN7ZQS35edn4Ga36qEn6y2E9i8x92omtm0xxHekIjN94neqaAPT1NADd+T9924lw4Bn6yO2YeAQAkeE9ii8tqehwIVXxHelLTN6KECAhgBn7eT35S0QwMeE9ii8tqehwISXxEHAgwDDh0QUldCHERcR2BEC0UQCRbK2rHZlZjN963ZvLABn4en3qG5n6yqE9+G+92vv9i89w1QQQrN07XfpqzLwJES37+Xn62O37+BU9qEt9+y192vtxTN77XfpoAdEUMM2Yeln5O+2IapnqmK2JGdU92nu9+jx9qhr9+Hztq5u9+q1x8OUUYfT1NADdin/92Wotm07xHehaHM5qnZlogBmIKG2LaVn5KO37G1n7WuE96R492wn9+y79qUn9+Iwx0OUUYfmKWC2KianqSuE9+G+92vv9i24xHYir7N7oUS2YSxn7Oe2Ke9mJeP2L+pmLqWHRYNUVBRUFtUHUVBEQ56CBNVQVtUAxMIEdiq09qsohTNy5AQHxZTFl1TR11OHRMIEdiq09qsohYNUVldX1BEARMIEd6R5t2rpti2zhMeEVZAHVoQCRbLxpzZnIjN7rHfpb0DXxNcRllDFkMQCRYXRgYKAwUMQwAfBQ0YQgYEEUkNCBNVQVtUAxMIEdiq09qEsxTNy5AQHxZTFl1TR11OHRMIEdiq09qEsxYNUVldX1BEARMIEd+Ny92Vs9i88xMeEVZAHVoQCRbM9ZHeuZDKwrTfspgDXxNcRllDFkMQCRYQQwECHgUUQQQfCwURRxNPbhgDAUJEQ2BIB11XEQ4Dn4GK37C8U92vq9ij3xHek7DK+J0QHxZTAEdCcFtPB1RcRxYbUd2Eptm0692vqxTK1LnerrjN743ZkqgBn4GK37C8nqSG35edn7qu2L61T1NADd+L29qhkxTKxbXZoJDN7rUS2YOhnqSq2YatU9qYm9iq1xHeu6wBn6+62LulmJCvD1ZTTd2Ci9il7hHerqzN8Z3ZlogBn5G22L+NU9qEs9mi8tqhr9+Hztq5u9+q1x8QHxZTAEdCZkZNUQsQW0BVA0IIHBtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVBwBzAn4OTFUCURdTAEdCERgDFV5dR1FTUQsQ2YS0n6in36OcU/OFE9+Ny92Vs9i8892vqxTLwYHfq4jN+KzepKQBnqSa2Y+5nqSGE9iCz923p9il7xHYg6TN8Z3fpp3K+LnZuJAPUR0QV1VVFnhhfBYbUQMCAQIMQwYfAgV1QgMIBgQbQwEZAw0bQwEQHxZGEl1eVkZYOlxTVFFSUQtpEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAESFgYEVgUQRwEHVgAURAILBwJEEAgCVVUUQ1UGBgQXLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLFcFUVcUQgQCAlcSEAUFAAUZQQkDCgRFFQZQCwMVEgdWbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAIQEQYDBVJCSwFWCgBHSghTUVUSQFAAAQJAEgkDBgJFLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLAkFAg0QFQdRVgYZSwVQAgwYFQYLAAAREgkLAVcZQgFWbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAYVQAdWV1VASggECwBHRQELBQ1FQ1cAC1IURAJXUFcXLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLAkBAw0UFgcDCgVDRwUBAwQZFlJTVQEREQFQUFIXFQJXbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbFZCEAEFBwQZF1ACAgAZRAELCwEQQwcFVlFHElAAUg0ZLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLANTV1UZQVMAUQxDQAVXUg0YRQkLAQdAFlQCVgxHQwUKbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbA0UFwRTUlIVEggHVQBFSgMLAlATElABAwAZQVAKUgBDLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLFNQClEYRlQFBVJAEgUFAwcYSldWBlVFRwQLBQNAEAkAbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAwSEgFWUVBHQQAFCwASRgNTBQBDR1cKAwYQSlBTBgcSLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLAULAwwVRglQVlZASgVUBAVAQAMLUFJASlMHAVYTRgRUbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbFBCQVNUUlFDQVBUBAAUEgBTCwNDSwUDUgVFEVMHBgYVLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLFVRAVYVEgQLVQwWRAVWAFVDRwgEBQVHRwlRCwIQRlJRbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAxDRAICV1FDQgQAAgASQQZQBw0ZR1dXClcWElcFB1cXLEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLFQCUAYRFQlXBQEQEQVXVgdDRgkECw0WR1BUAwwXFQEHbEMQQQkCHV5RFBMeEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbAZCR1MDAgNFEVADAQBCQQNTVlIVEAhXUQATSggFBgQULEYDAQwRXVtCVBYNUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLAELC1JARwQHCgVCQgUDBwEZSwgCVgIXS1UFVQ1EQQYBbEMQQQkCHV5RFBNvHxZDFBMISBZCEl1XXVBAARMIEVxVB0FBCRsOAAIcUkQMHV5AR1xEEkJGHgYPElxTSVtPEkZBHVdOHh5fUFVTFx9UQVtMB15WUk0PEF4cWEYOBB5GeXUSHFwdQ1xOB15BHEBrMgJdXmtMEFBAV2sTQwMEHgQVXgMFbFZCEAEFBwQZF1ACAgAZRAELCwEQQwcFVlFHElAAUg0ZLEYDAQwRXVtCVBYNUVxTQxYbUVlGR0RSSR4dQAcPEkEfXVtTB1lXUkdVXgMcUllACV5cUkNSXVJdXhtMEFBAVxpHAV5fR1tFEkgcUFsPGEMdRBtVOXABXFkOA1ldR1tSXEV4cgdOHm5fUFVTF24AAwYXXgEGHgYWLFVRAVZHElRQAVVHRAUHUgVASwZQCwAQEgBWUVYURgMGbEMQQQkCHV5RFBMeEUZSBUEQCRZJB0VCQA4OXEIBHVVRXl9dQUBJFlBBRxkTXVBfUk5OHVBFQBpCHFwdXldAAVUcVUZOHkVdV1VYXVJdHV9TXEYdR35gQF5fHERJHEVdQBtVOXABXFl+HlJTQVB+QQEABRkRRxwABGsZQFACV1ZFFQMDBAwVQAQAUgIVEQVUCwQTQghTUgESQG5FAgYZQx9YQ1MDDkw=";
+    const key = "s1234!";
+    function unpack(value) {
+      const raw = Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+      const decoded = raw.map((byte, index) => byte ^ key.charCodeAt(index % key.length));
+      return JSON.parse(new TextDecoder().decode(decoded));
+    }
+    const weddingData = unpack(packed);
+    const galleryImages = weddingData.galleryImages || [];
+    const rsvpEndpoint = ["https://www.fromtoday.co.kr/api/mcards/", "tt1A1J", "/rsvp/"].join("");
+
+    function cssUrl(value) {
+      return value ? `url("${value}")` : "none";
+    }
+
+    function setMeta(selector, value) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute("content", value);
+    }
+
+    function setHtml(field, value) {
+      const element = document.querySelector(`[data-field="${field}"]`);
+      if (element) element.innerHTML = value || "";
+    }
+
+    function setAction(action, href) {
+      const element = document.querySelector(`[data-action="${action}"]`);
+      if (element) element.href = href || "#";
+    }
+
+    function renderAccounts(accounts) {
+      const accountBody = document.querySelector("#accountBody");
+      const groups = new Map();
+      accounts.forEach((account) => {
+        if (!groups.has(account.group)) groups.set(account.group, []);
+        groups.get(account.group).push(account);
+      });
+      accountBody.innerHTML = [...groups.entries()].map(([group, items]) => `
+        <div class="account-group">
+          <h3>${group}</h3>
+          ${items.map((item) => `
+            <div class="account-item">
+              <div>
+                <b>${item.relation} ${item.holder}</b>
+                <span>${item.bank} ${item.number}</span>
+              </div>
+              <button class="copy-btn" type="button" data-copy="${item.number}">복사</button>
+            </div>
+          `).join("")}
+        </div>
+      `).join("");
+    }
+
+    document.title = weddingData.title;
+    setMeta('meta[name="description"]', weddingData.description);
+    setMeta('meta[property="og:title"]', weddingData.title);
+    setMeta('meta[property="og:description"]', weddingData.description);
+    setMeta('meta[property="og:image"]', weddingData.ogImage);
+    document.documentElement.style.setProperty("--hero-image", cssUrl(weddingData.galleryImages[10] || weddingData.ogImage));
+    document.documentElement.style.setProperty("--calendar-image", cssUrl(weddingData.bg.calendar));
+    document.documentElement.style.setProperty("--map-image", cssUrl("assets/location-map.png"));
+    document.documentElement.style.setProperty("--rsvp-image", cssUrl(weddingData.bg.rsvp));
+
+    setHtml("heroNames", weddingData.heroNames);
+    setHtml("dateText", weddingData.dateText);
+    setHtml("placeText", weddingData.placeText);
+    setHtml("invitationTitle", weddingData.invitationTitle);
+    setHtml("introHtml", weddingData.introHtml.replace("기쁨과 설렘을 함께해 주시고 축복해 주세요.", '<span class="keep-line">기쁨과 설렘을 함께해 주시고<br>축복해 주세요.</span>'));
+    setHtml("groomFamilyDesc", weddingData.families[0].desc);
+    setHtml("groomFamilyName", weddingData.families[0].name);
+    setHtml("brideFamilyDesc", weddingData.families[1].desc);
+    setHtml("brideFamilyName", weddingData.families[1].name);
+    setHtml("calendarTitle", weddingData.calendarTitle);
+    setHtml("calendarMonth", weddingData.calendarMonth);
+    setHtml("calendarTime", weddingData.calendarTime);
+    setHtml("countdownPrefix", weddingData.countdownPrefix);
+    setHtml("locationName", weddingData.location.name);
+    setHtml("locationDetail", weddingData.location.detail);
+    setHtml("transit", weddingData.location.transit);
+    setHtml("accountText", weddingData.accountText);
+    setHtml("rsvpTitle", weddingData.rsvpTitle);
+    setHtml("rsvpContent", weddingData.rsvpContent);
+    setHtml("footer", weddingData.footer);
+    setAction("groomCall", `tel:${weddingData.contacts.groom}`);
+    setAction("brideCall", `tel:${weddingData.contacts.bride}`);
+    setAction("naverMap", weddingData.location.naver);
+    setAction("kakaoMap", weddingData.location.kakao);
+    setAction("tmap", weddingData.location.tmap);
+    renderAccounts(weddingData.accounts || []);
+
+    document.querySelectorAll("[data-petal]").forEach((petal) => {
+      const [x, size, dur, delay, drift, spin] = petal.dataset.petal.split(",");
+      petal.style.setProperty("--x", x);
+      petal.style.setProperty("--size", size);
+      petal.style.setProperty("--dur", dur);
+      petal.style.setProperty("--delay", delay);
+      petal.style.setProperty("--drift", drift);
+      petal.style.setProperty("--spin", spin);
+    });
+
+    const revealTargets = [
+      ...document.querySelectorAll("section .section-title, .prose, .names, .actions, .calendar, .countdown, .location-card, .transit-card, .account-card, .rsvp p, .rsvp .btn, .footer")
+    ];
+    revealTargets.forEach((target, index) => {
+      target.classList.add("reveal");
+      target.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 70}ms`);
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+    revealTargets.forEach((target) => revealObserver.observe(target));
+
+    const weddingDate = new Date(weddingData.dateISO);
+    const dDay = document.querySelector("#dDay");
+    const now = new Date();
+    const diff = weddingDate.getTime() - now.getTime();
+    const days = Math.ceil(diff / 86400000);
+    dDay.textContent = days > 0 ? `${days}일 남았습니다` : days === 0 ? "오늘입니다" : `${Math.abs(days)}일 지났습니다`;
+
+    const toast = document.querySelector("#toast");
+    let toastTimer;
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    const bgm = document.querySelector("#bgm");
+    const audioToggle = document.querySelector("#audioToggle");
+    const audioIconOff = document.querySelector("#audioIconOff");
+    const audioIconOn = document.querySelector("#audioIconOn");
+
+    function setAudioState(playing) {
+      audioIconOff.hidden = playing;
+      audioIconOn.hidden = !playing;
+      audioToggle.setAttribute("aria-label", playing ? "배경음악 정지" : "배경음악 재생");
+    }
+
+    audioToggle.addEventListener("click", async () => {
+      if (!bgm.getAttribute("src")) bgm.src = bgm.dataset.src;
+      try {
+        if (bgm.paused) {
+          await bgm.play();
+          setAudioState(true);
+        } else {
+          bgm.pause();
+          setAudioState(false);
+        }
+      } catch {
+        setAudioState(false);
+        showToast("음악 파일을 assets/close-to-you.mp3로 넣으면 재생됩니다.");
+      }
+    });
+
+    bgm.addEventListener("ended", () => setAudioState(false));
+    bgm.addEventListener("error", () => {
+      setAudioState(false);
+      showToast("음악 파일을 찾을 수 없습니다.");
+    });
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("계좌번호가 복사되었습니다.");
+        } catch {
+          showToast(text);
+        }
+      });
+    });
+
+    const rsvpModal = document.querySelector("#rsvpModal");
+    const rsvpForm = document.querySelector("#rsvpForm");
+    const rsvpSubmit = rsvpForm.querySelector(".rsvp-submit");
+
+    function toggleRsvpModal(open) {
+      rsvpModal.classList.toggle("open", open);
+      document.body.style.overflow = open ? "hidden" : "";
+      if (open) {
+        window.setTimeout(() => rsvpForm.elements.name.focus(), 80);
+      }
+    }
+
+    document.querySelector("#openRsvpForm").addEventListener("click", () => toggleRsvpModal(true));
+    document.querySelector("#closeRsvpForm").addEventListener("click", () => toggleRsvpModal(false));
+    rsvpModal.addEventListener("click", (event) => {
+      if (event.target === rsvpModal) toggleRsvpModal(false);
+    });
+
+    rsvpForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(rsvpForm);
+      const name = String(formData.get("name") || "").trim();
+      const count = Math.max(1, Number(formData.get("count") || 1));
+      const mealValue = formData.get("meal");
+      const isDine = mealValue === "" ? null : mealValue === "true";
+
+      if (!name) {
+        showToast("성함을 입력해주세요.");
+        rsvpForm.elements.name.focus();
+        return;
+      }
+
+      const payload = {
+        side: formData.get("side") || "groom",
+        name,
+        phone: null,
+        memo: null,
+        is_visit: true,
+        count,
+        names: null,
+        is_dine: isDine
+      };
+
+      rsvpSubmit.disabled = true;
+      rsvpSubmit.textContent = "전달 중...";
+      try {
+        const response = await fetch(rsvpEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) throw new Error(`RSVP failed: ${response.status}`);
+        showToast("참석 의사가 전달되었습니다.");
+        rsvpForm.reset();
+        toggleRsvpModal(false);
+      } catch {
+        showToast("전달에 실패했습니다. 잠시 후 다시 시도해주세요.");
+      } finally {
+        rsvpSubmit.disabled = false;
+        rsvpSubmit.textContent = "참석 의사 전달하기";
+      }
+    });
+
+    const gallery = document.querySelector("#galleryGrid");
+    const lightbox = document.querySelector("#lightbox");
+    const lightboxStage = document.querySelector("#lightboxStage");
+    const lightboxImage = document.querySelector("#lightboxImage");
+    let currentPhotoIndex = 0;
+    let photoTimer;
+
+    function showPhoto(index, direction = 0) {
+      if (!galleryImages.length) return;
+      currentPhotoIndex = (index + galleryImages.length) % galleryImages.length;
+      const src = galleryImages[currentPhotoIndex];
+      if (direction === 0) {
+        lightboxImage.classList.remove("changing");
+        lightboxImage.src = src.replace("w=800", "w=1400");
+        lightboxImage.alt = `웨딩 갤러리 사진 ${currentPhotoIndex + 1}`;
+        return;
+      }
+      lightboxImage.style.setProperty("--photo-shift", `${direction * 18}px`);
+      lightboxImage.classList.add("changing");
+      clearTimeout(photoTimer);
+      photoTimer = window.setTimeout(() => {
+        lightboxImage.src = src.replace("w=800", "w=1400");
+        lightboxImage.alt = `웨딩 갤러리 사진 ${currentPhotoIndex + 1}`;
+        lightboxImage.style.setProperty("--photo-shift", `${direction * -18}px`);
+        requestAnimationFrame(() => lightboxImage.classList.remove("changing"));
+      }, 110);
+    }
+
+    function openPhoto(index) {
+      showPhoto(index);
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePhoto() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    function movePhoto(step) {
+      if (!galleryImages.length) return;
+      showPhoto(currentPhotoIndex + step, step > 0 ? 1 : -1);
+    }
+
+    galleryImages.forEach((src, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", `${index + 1}번째 사진 크게 보기`);
+      button.classList.add("reveal");
+      button.style.setProperty("--reveal-delay", `${(index % 3) * 90}ms`);
+      button.innerHTML = `<img src="${src}" alt="웨딩 갤러리 사진 ${index + 1}" loading="lazy">`;
+      button.addEventListener("click", () => openPhoto(index));
+      gallery.appendChild(button);
+      revealObserver.observe(button);
+    });
+
+    document.querySelector("#closeLightbox").addEventListener("click", closePhoto);
+    document.querySelector("#prevPhoto").addEventListener("click", (event) => {
+      event.stopPropagation();
+      movePhoto(-1);
+    });
+    document.querySelector("#nextPhoto").addEventListener("click", (event) => {
+      event.stopPropagation();
+      movePhoto(1);
+    });
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closePhoto();
+    });
+
+    let touchStartX = 0;
+    lightboxStage.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+    lightboxStage.addEventListener("touchend", (event) => {
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(distance) > 42) movePhoto(distance > 0 ? -1 : 1);
+    }, { passive: true });
+
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox.classList.contains("open")) return;
+      if (event.key === "Escape") closePhoto();
+      if (event.key === "ArrowLeft") movePhoto(-1);
+      if (event.key === "ArrowRight") movePhoto(1);
+    });
+  </script>
+</body>
+</html>
